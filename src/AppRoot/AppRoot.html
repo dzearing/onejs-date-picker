@@ -1,0 +1,16 @@
+<js-view js-type="AppRoot" js-baseType="AppRootBase" js-css="AppRoot.css">
+
+    <div class="c-AppRoot">
+
+        <div class="selectionDescription">
+            You have selected <span js-bind="text:selection.selectedItem.month"></span>-<span js-bind="text:selection.selectedItem.date"></span>-<span js-bind="text:selection.selectedItem.year"></span>.
+        </div>
+
+        <div class="controlArea">
+            <js-view js-name="dp" js-type="DatePicker"></js-view>
+        </div>
+
+        <div id="morePickers" class="controlArea"></div>
+    </div>
+
+</js-view>

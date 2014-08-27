@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+    <script type="text/javascript" src="app/require.js"></script>
+    <script type="text/javascript">
+        requirejs.config({
+            baseUrl: 'app',
+            deps: [ 'main' ]
+        });
+    </script>
+</head>
+<body>
+    <button id="createDP">Create another date picker.</button>
+
+    <script type="text/javascript">
+    function createDatePicker() {
+        require(['DatePicker'], function(DatePicker) {
+            var dp = new DatePicker();
+            dp.setData({
+                month: 0,
+                year: 2014
+            });
+
+            // Append the dp to the body.
+            document.querySelector('.controlArea').appendChild(dp.renderElement());
+
+            // Tell it to activate.
+            dp.activate();
+        });
+    }
+
+    document.getElementById("createDP").addEventListener('click', createDatePicker);
+    </script>
+
+
+
+</body>
+</html>

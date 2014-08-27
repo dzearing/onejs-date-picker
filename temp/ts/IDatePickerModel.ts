@@ -1,0 +1,4 @@
+interface IDatePickerModel {
+}
+
+export = IDatePickerModel;

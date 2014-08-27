@@ -1,0 +1,25 @@
+<js-view js-type="DatePicker" js-baseType="DatePickerBase" js-model="DatePickerModel" js-css="DatePicker.css">
+    <div class="dp-control" js-userAction="keydown:$view._onKeyDown" tabindex="0">
+        <div class="dp-month-header">
+            <a href="#" class="dp-month-prev" js-userAction="click:$view.adjustMonth">Prev</a>
+            <a href="#" class="dp-month-next" js-userAction="click:$view.adjustMonth('next')">Next</a>
+            <div class="dp-month-title" js-bind="text:$view.titleText"></div>
+        </div>
+        <table class="dp-calendar" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr class="dp-week-header" js-repeat="day in $view._days">
+                    <td class="dp-day-header" js-bind="text:day"></td>
+                </tr>
+            </thead>
+
+            <tbody js-repeat="week in $view.weeks">
+                <tr js-repeat="day in week">
+                    <td class="dp-day-cell"
+                        js-bind="text:day.date, className.isInMonth:day.isInMonth, className.isToday:day.isToday, className.isSelected:day.isSelected"
+                        js-userAction="click:$view._onClick(day)"></td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+</js-view>
