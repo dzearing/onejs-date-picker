@@ -16,7 +16,7 @@
                 <tr js-repeat="day in week">
                     <td class="dp-day-cell"
                         js-bind="text:day.date, className.isInMonth:day.isInMonth, className.isToday:day.isToday, className.isSelected:day.isSelected"
-                        js-userAction="click:$view._onClick(day)"></td>
+                        js-userAction="click:$owner._onClick(day)"></td>
                 </tr>
             </tbody>
 

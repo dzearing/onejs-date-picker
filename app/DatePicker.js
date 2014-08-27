@@ -67,7 +67,7 @@ define(["require", "exports", 'DatePickerModel', 'View', 'DatePickerBase', 'Repe
                     },
                     "events": {
                         "click": [
-                            "$view._onClick(day)"
+                            "$owner._onClick(day)"
                         ]
                     }
                 }

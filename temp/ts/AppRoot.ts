@@ -16,13 +16,13 @@ class AppRoot extends AppRootBase {
 
         return (_this.element = _this._ce("div", ["class","c-AppRoot"], null, [
             _this._ce("div", ["class","selectionDescription"], null, [
-                _this._ct("\r\n            You have selected "),
+                _this._ct("\n            You have selected "),
                 _this._ce("span", [], bindings[0]),
                 _this._ct("-"),
                 _this._ce("span", [], bindings[1]),
                 _this._ct("-"),
                 _this._ce("span", [], bindings[2]),
-                _this._ct(".\r\n        ")
+                _this._ct(".\n        ")
             ]),
             _this._ce("div", ["class","controlArea"], null, [
                 _this.dp.renderElement()

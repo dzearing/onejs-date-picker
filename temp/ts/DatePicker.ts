@@ -66,7 +66,7 @@ class DatePickerBlock2Item extends View {
             },
             "events": {
                 "click": [
-                    "$view._onClick(day)"
+                    "$owner._onClick(day)"
                 ]
             }
         }
