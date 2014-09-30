@@ -1,0 +1,1 @@
+define(["require","exports","AppRoot/AppRoot"],function(a,b,c){function d(){var a=new c,b=document.body;window.addEventListener("unload",function(){a.dispose()}),window.addEventListener("resize",function(){a.resize()}),b.appendChild(a.render()),a.activate()}document.body?d():document.onload=d});

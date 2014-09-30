@@ -1,4 +1,4 @@
-define(["require", "exports", 'AppRoot'], function(require, exports, AppRoot) {
+define(["require", "exports", 'AppRoot/AppRoot'], function(require, exports, AppRoot) {
     if (document.body) {
         initialize();
     } else {
@@ -19,7 +19,7 @@ define(["require", "exports", 'AppRoot'], function(require, exports, AppRoot) {
             app.resize();
         });
 
-        body.appendChild(app.renderElement());
+        body.appendChild(app.render());
         app.activate();
     }
 });

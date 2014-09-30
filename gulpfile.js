@@ -2,9 +2,8 @@
 
 var gulp = require('gulp');
 var onejsCompiler = require('gulp-onejs-compiler');
-var tsc = require('gulp-tsc');
-var clean = require('gulp-clean');
-var flatten = require('gulp-flatten');
+var tsc = require('gulp-typescript');
+var clean = require('gulp-rimraf');
 var uglify = require('gulp-uglifyjs');
 var add = require('gulp-add-src');
 var less = require('gulp-less');
@@ -12,23 +11,44 @@ var cssMinify = require('gulp-minify-css');
 var csstojs = require('gulp-csstojs');
 var filter = require('gulp-filter');
 var size = require('gulp-size');
+var mergeStream = require('merge-stream');
 
 var paths = {
     tempPath: 'temp',
     appPath: 'app',
     appMinPath: 'app-min',
-    staticFiles: [ 'bower_components/requirejs/require.js' ]
+    staticFiles: ['node_modules/requirejs/require.js']
 };
+
+var amdDependencies = [
+    'onejs'
+];
 
 gulp.task('clean', function() {
     return gulp.src([paths.tempPath, paths.appPath, paths.appMinPath])
         .pipe(clean());
 });
 
-gulp.task('tsc-preprocess', ['clean'], function() {
+gulp.task('copy-deps', ['clean'], function() {
+    var stream = mergeStream();
+
+    for (var i = 0; i < amdDependencies.length; i++) {
+        var dep = amdDependencies[i];
+
+        stream.add(
+            gulp.src('node_modules/' + dep + '/dist/amd/*')
+            .pipe(gulp.dest(paths.tempPath + '/ts/' + dep))
+            .pipe(gulp.dest(paths.appPath + '/' + dep))
+        );
+    }
+
+    return stream;
+});
+
+gulp.task('tsc-preprocess', ['copy-deps'], function() {
     var lessFilter = filter('**/*.less');
 
-    return gulp.src(['node_modules/onejs-compiler/src/**/*', 'node_modules/onejs/src/**/*', 'src/**/*' ])
+    return gulp.src(['src/**/*'])
         .pipe(lessFilter)
         .pipe(less())
         .pipe(cssMinify())
@@ -36,7 +56,6 @@ gulp.task('tsc-preprocess', ['clean'], function() {
             typeScript: true
         }))
         .pipe(lessFilter.restore())
-        .pipe(flatten())
         .pipe(onejsCompiler())
         .pipe(gulp.dest(paths.tempPath + '/ts'));
 });
@@ -50,10 +69,12 @@ gulp.task('tsc', ['tsc-preprocess'], function() {
 });
 
 gulp.task('minify', ['tsc'], function() {
-    return gulp.src( [paths.appPath + '/*.js' ])
+    return gulp.src([paths.appPath + '/*.js'])
         .pipe(uglify())
-        .pipe(size({gzip: true }))
-        .pipe(gulp.dest(paths.appMinPath ));
+        .pipe(size({
+            gzip: true
+        }))
+        .pipe(gulp.dest(paths.appMinPath));
 });
 
 gulp.task('copy-static-files', ['clean', 'tsc'], function() {
@@ -72,4 +93,3 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['tsc', 'minify', 'copy-static-files']);
-

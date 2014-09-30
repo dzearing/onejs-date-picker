@@ -1,4 +1,4 @@
-import AppRoot = require('AppRoot');
+import AppRoot = require('AppRoot/AppRoot');
 
 if (document.body) {
     initialize();
@@ -21,6 +21,6 @@ function initialize() {
         app.resize();
     });
 
-    body.appendChild(app.renderElement());
+    body.appendChild(app.render());
     app.activate();
 }
