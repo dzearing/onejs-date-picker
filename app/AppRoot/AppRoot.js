@@ -13,20 +13,6 @@ define(["require", "exports", '../onejs/View', '../DatePicker/DatePicker', '../o
             _super.apply(this, arguments);
             this.viewName = 'AppRoot';
             this.dp = this.addChild(new DatePicker());
-            this._bindings = [
-                {
-                    "id": "0",
-                    "text": "$view.dp._viewModel.month"
-                },
-                {
-                    "id": "1",
-                    "text": "$view.dp._viewModel.date"
-                },
-                {
-                    "id": "2",
-                    "text": "$view.dp._viewModel.year"
-                }
-            ];
         }
         AppRoot.prototype.onViewModelChanged = function () {
             _super.prototype.onViewModelChanged.call(this);
@@ -38,15 +24,6 @@ define(["require", "exports", '../onejs/View', '../DatePicker/DatePicker', '../o
             var bindings = _this._bindings;
 
             return (_this.element = _this._ce("div", ["class", "c-AppRoot"], null, [
-                _this._ce("div", ["class", "selectionDescription"], null, [
-                    _this._ct("\n        You have selected "),
-                    _this._ce("span", [], bindings[0]),
-                    _this._ct("-"),
-                    _this._ce("span", [], bindings[1]),
-                    _this._ct("-"),
-                    _this._ce("span", [], bindings[2]),
-                    _this._ct(".\n    ")
-                ]),
                 _this._ce("div", ["class", "controlArea"], null, [
                     _this.dp.render()
                 ]),

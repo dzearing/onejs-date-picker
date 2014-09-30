@@ -14,15 +14,15 @@
 
     <script type="text/javascript">
     function createDatePicker() {
-        require(['DatePicker'], function(DatePicker) {
+        require(['./DatePicker/DatePicker'], function(DatePicker) {
             var dp = new DatePicker();
             dp.setData({
-                month: 0,
+                month: 1,
                 year: 2014
             });
 
             // Append the dp to the body.
-            document.querySelector('.controlArea').appendChild(dp.renderElement());
+            document.querySelector('.controlArea').appendChild(dp.render());
 
             // Tell it to activate.
             dp.activate();
