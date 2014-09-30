@@ -19,7 +19,7 @@ define(["require", "exports", '../onejs/Selection', '../onejs/View', '../onejs/V
         DatePickerBase.prototype.adjustMonth = function (direction) {
             var monthAdjustment = (direction == 'next') ? 1 : -1;
             var viewModel = this.getViewModel();
-            var date = new Date(viewModel.year, viewModel.month + monthAdjustment, 1);
+            var date = new Date(viewModel.year, viewModel.month - 1 + monthAdjustment, 1);
 
             viewModel.setData({
                 year: date.getFullYear(),
@@ -31,15 +31,16 @@ define(["require", "exports", '../onejs/Selection', '../onejs/View', '../onejs/V
 
         DatePickerBase.prototype.onViewModelChanged = function () {
             var viewModel = this.getViewModel();
+            var monthIndex = viewModel.month - 1;
 
-            if (this._selectedMonth !== (viewModel.month - 1)) {
-                this._selectedMonth = viewModel.month - 1;
-                this.titleText = DatePickerStrings.titleFormat.replace('{month}', this._months[this._selectedMonth]).replace('{year}', viewModel.year);
-                this.weeks = this._getWeeks(viewModel.month, viewModel.year);
+            if (this._selectedMonth !== monthIndex) {
+                this._selectedMonth = monthIndex;
+                this.titleText = DatePickerStrings.titleFormat.replace('{month}', this._months[monthIndex]).replace('{year}', viewModel.year);
+                this.weeks = this._getWeeks(monthIndex, viewModel.year);
                 this._dateToItem = this._getDateToItem(this.weeks);
             }
 
-            this.selection.setSelected(new Date(viewModel.year, viewModel.month, viewModel.date).getTime());
+            this.selection.setSelected(new Date(viewModel.year, monthIndex, viewModel.date).getTime());
         };
 
         DatePickerBase.prototype._getWeeks = function (month, year) {
@@ -146,7 +147,7 @@ define(["require", "exports", '../onejs/Selection', '../onejs/View', '../onejs/V
         DatePickerBase.prototype._updateByDate = function (targetDate) {
             this.setData({
                 year: targetDate.getFullYear(),
-                month: targetDate.getMonth(),
+                month: targetDate.getMonth() + 1,
                 date: targetDate.getDate()
             });
         };
